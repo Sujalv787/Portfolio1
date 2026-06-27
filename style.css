@@ -509,6 +509,8 @@ img {
 .hero-stats {
   display: flex;
   gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards;
   animation-delay: 1.3s;
@@ -516,6 +518,7 @@ img {
 
 .stat-item {
   text-align: center;
+  min-width: 80px;
 }
 
 .stat-number {
@@ -525,6 +528,7 @@ img {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline;
 }
 
 .stat-suffix {
@@ -534,6 +538,7 @@ img {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline;
 }
 
 .stat-label {
@@ -814,6 +819,8 @@ img {
   line-height: 1.6;
   white-space: pre-wrap;
   font-size: 0.82rem;
+  overflow-x: auto;
+  word-break: break-word;
 }
 
 /* ============================================
@@ -1012,7 +1019,7 @@ img {
    ============================================ */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
   gap: 32px;
 }
 
@@ -1411,11 +1418,37 @@ img {
   }
 }
 
+/* ============================================
+   MOBILE-SPECIFIC HERO OVERRIDES
+   ============================================ */
+@media (max-width: 600px) {
+  .hero {
+    padding: 80px 16px 40px;
+  }
+
+  .hero-avatar-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-avatar {
+    width: 140px;
+    height: 140px;
+  }
+
+  .fi-1, .fi-2, .fi-3, .fi-4, .fi-5, .fi-6 {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     --section-padding: 80px 0;
   }
 
+  /* Nav */
   .nav-links {
     position: fixed;
     top: 0;
@@ -1430,6 +1463,7 @@ img {
     gap: 4px;
     transition: var(--transition-smooth);
     border-left: 1px solid var(--border-color);
+    z-index: 999;
   }
 
   .nav-links.open {
@@ -1438,30 +1472,64 @@ img {
 
   .nav-toggle {
     display: flex;
+    z-index: 1001;
   }
 
+  /* Hero */
   .hero-name {
     font-size: clamp(2.2rem, 8vw, 3.5rem);
   }
 
   .hero-title-wrapper {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 4px;
   }
 
+  .hero-description {
+    font-size: 0.95rem;
+    padding: 0 8px;
+  }
+
+  .hero-cta {
+    gap: 12px;
+  }
+
+  .hero-stats {
+    gap: 24px;
+  }
+
+  /* Section Titles */
   .section-title {
     font-size: 1.5rem;
     margin-bottom: 40px;
   }
 
+  /* About */
   .about-info-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
+  .terminal-body {
+    padding: 16px;
+    font-size: 0.78rem;
+  }
+
+  .terminal-output {
+    font-size: 0.76rem;
+  }
+
+  /* Skills */
   .skills-grid {
     grid-template-columns: 1fr;
   }
 
+  .skill-category {
+    padding: 20px;
+  }
+
+  /* Timeline */
   .timeline {
     padding-left: 30px;
   }
@@ -1470,39 +1538,150 @@ img {
     flex-direction: column;
   }
 
+  .timeline-content {
+    padding: 20px;
+  }
+
+  /* Projects */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Achievements */
   .achievements-grid {
     grid-template-columns: 1fr 1fr;
   }
 
+  /* Contact */
   .contact-cards {
     grid-template-columns: 1fr 1fr;
   }
 
+  .contact-card p {
+    font-size: 0.75rem;
+    word-break: break-all;
+  }
+
+  /* 3D — reduce intensity on mobile */
   #three-canvas {
-    opacity: 0.6;
+    opacity: 0.45;
+  }
+
+  /* Disable 3D card tilt on touch devices */
+  .glass-card {
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
   }
 }
 
 @media (max-width: 480px) {
+  :root {
+    --section-padding: 60px 0;
+  }
+
+  .hero {
+    padding: 70px 12px 30px;
+  }
+
+  /* Keep stats in a row — stat-number and stat-suffix are now inline */
   .hero-stats {
-    flex-direction: column;
-    gap: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 24px;
+  }
+
+  .stat-item {
+    min-width: 70px;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .stat-suffix {
+    font-size: 1.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
   }
 
   .hero-cta {
     flex-direction: column;
     align-items: center;
+    gap: 10px;
   }
 
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+
+  /* About */
+  .about-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Skills */
+  .skill-tags {
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+
+  /* Achievements — single column on very small screens */
   .achievements-grid {
     grid-template-columns: 1fr;
   }
 
+  /* Contact — single column */
   .contact-cards {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
+  .contact-card {
+    padding: 20px 16px;
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 1.3rem;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  /* Project card */
+  .project-image {
+    height: 160px;
+  }
+
+  .project-info {
+    padding: 18px;
+  }
+
+  /* Timeline */
+  .timeline-details li {
+    font-size: 0.88rem;
+  }
+
+  /* Floating tech icons — hide to avoid clutter */
   .floating-icon {
     display: none;
+  }
+
+  /* 3D — very subtle on small screens */
+  #three-canvas {
+    opacity: 0.3;
+  }
+
+  /* Container padding */
+  .container {
+    padding: 0 16px;
   }
 }

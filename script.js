@@ -265,8 +265,11 @@
   animate();
 })();
 
-// ——— 3D Card Tilt Effect ———
+// ——— 3D Card Tilt Effect (desktop only) ———
 (function initCardTilt() {
+  // Skip on touch devices
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
   const cards = document.querySelectorAll('.glass-card');
 
   cards.forEach((card) => {
